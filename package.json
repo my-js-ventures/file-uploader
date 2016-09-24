@@ -2,12 +2,16 @@
   "name": "xhr-file-uploader",
   "version": "0.1.1",
   "description": "a simple ajax file uploader",
-  "main": "index.js",
+  "main": "./dist/index.js",
   "scripts": {
     "build:dist": "webpack",
     "build:sample": "webpack --config webpack.config.sample.js",
-    "start": "npm run build:sample && php -S 127.0.0.1:8080 -t sample"
+    "start": "npm run build:sample && php -S 127.0.0.1:8080 -t sample",
+    "prepublish": "npm run build:dist"
   },
+  "files": [
+    "dist"
+  ],
   "author": "Gopikrishna Sathyamurthy",
   "license": "ISC",
   "repository": {
