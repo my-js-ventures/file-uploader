@@ -8,6 +8,11 @@ FileUploader(
   document.querySelector('input[type=file]'),
   {
     target: './target.php',
-    onProgress: progressFunction
+    onProgress: progressFunction,
+    allowedTypes: [
+      'text/plain',
+      'image/png',
+      /^video\//
+    ]
   }
 );

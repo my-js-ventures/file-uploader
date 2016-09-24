@@ -10,6 +10,30 @@ function uploadFile(file, target, progressFn, errorFn) {
 
 }
 
+function assertAllowedTypes(allowedTypes, type) {
+
+  if (allowedTypes.length) {
+
+    var found = false;
+
+    for (var i = 0; i < allowedTypes.length && !found; ++i) {
+
+      var allowedType = new RegExp(allowedTypes[i]);
+
+      found = allowedType.test(type);
+
+    }
+
+    if (!found) {
+
+      throw new TypeError('File type ' + type + ' not allowed.');
+
+    }
+
+  }
+
+}
+
 function selectFile(event, options) {
 
   var files = event.target.files || event.dataTransfer.files;
@@ -18,6 +42,8 @@ function selectFile(event, options) {
 
     var file = files[0];
     var size = file.size;
+
+    assertAllowedTypes(options.allowedTypes, file.type);
 
     uploadFile(
       file,
@@ -39,6 +65,7 @@ module.exports = function (input, options) {
 
   var stub = function () {};
   var defaultOptions = {
+    allowedTypes: [],
     onProgress: stub,
     onError: stub,
     target: ''
