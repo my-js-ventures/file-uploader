@@ -4,7 +4,9 @@
   "description": "a simple ajax file uploader",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build:dist": "webpack",
+    "build:sample": "webpack --config webpack.config.sample.js",
+    "start": "npm run build:sample && php -S 127.0.0.1:8080 -t sample"
   },
   "author": "Gopikrishna Sathyamurthy",
   "license": "ISC",
@@ -15,5 +17,8 @@
   "bugs": {
     "url": "https://github.com/my-js-ventures/file-uploader/issues"
   },
-  "homepage": "https://github.com/my-js-ventures/file-uploader#readme"
+  "homepage": "https://github.com/my-js-ventures/file-uploader#readme",
+  "devDependencies": {
+    "webpack": "1.13.2"
+  }
 }
