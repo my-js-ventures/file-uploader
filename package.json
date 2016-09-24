@@ -1,5 +1,5 @@
 {
-  "name": "file-uploader",
+  "name": "xhr-file-uploader",
   "version": "0.1.0",
   "description": "a simple ajax file uploader",
   "main": "index.js",
