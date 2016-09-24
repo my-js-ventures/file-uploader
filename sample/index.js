@@ -1,6 +1,20 @@
-function progressFunction(progress) {
+function startFunction() {
+  console.log('started');
+}
 
-  document.querySelector('input[type=text]').value = progress;
+function endFunction() {
+  console.log('finished');
+}
+
+function errorFunction() {
+  console.log('error');
+}
+
+function progressFunction(files) {
+
+  files.forEach(function (file) {
+    console.log(file.name, file.progress);
+  });
 
 }
 
@@ -9,6 +23,9 @@ FileUploader(
   {
     target: './target.php',
     onProgress: progressFunction,
+    onError: errorFunction,
+    onEnd: endFunction,
+    onStart: startFunction,
     allowedTypes: [
       'text/plain',
       'image/png',
