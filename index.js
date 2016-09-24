@@ -10,7 +10,7 @@ function uploadFile(file, target, progressFn, errorFn) {
 
 }
 
-function selectFile(event, target, progressFn) {
+function selectFile(event, options) {
 
   var files = event.target.files || event.dataTransfer.files;
 
@@ -21,15 +21,13 @@ function selectFile(event, target, progressFn) {
 
     uploadFile(
       file,
-      target,
+      options.target,
       function (p) {
-        if(p.lengthComputable) {
-          progressFn(Math.ceil(p.loaded / size * 10000) / 100);
+        if (p.lengthComputable) {
+          options.onProgress(Math.ceil(p.loaded / size * 10000) / 100);
         }
       },
-      function (err) {
-        console.log(err);
-      }
+      options.onError
     );
 
     event.target.value = '';
@@ -37,10 +35,19 @@ function selectFile(event, target, progressFn) {
 
 }
 
-module.exports = function (input, target, progress) {
+module.exports = function (input, options) {
+
+  var stub = function () {};
+  var defaultOptions = {
+    onProgress: stub,
+    onError: stub,
+    target: ''
+  };
+
+  options = Object.assign({}, defaultOptions, options);
 
   input.addEventListener('change', function (event) {
-    selectFile(event, target, progress);
+    selectFile(event, options);
   }, false);
 
 };

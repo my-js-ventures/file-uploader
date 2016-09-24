@@ -4,10 +4,10 @@ function progressFunction(progress) {
 
 }
 
-const target = './target.php';
-
 FileUploader(
   document.querySelector('input[type=file]'),
-  target,
-  progressFunction
+  {
+    target: './target.php',
+    onProgress: progressFunction
+  }
 );
