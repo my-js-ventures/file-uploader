@@ -1,0 +1,19 @@
+{
+  "name": "file-uploader",
+  "version": "0.0.0",
+  "description": "a simple ajax file uploader",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Gopikrishna Sathyamurthy",
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/my-js-ventures/file-uploader.git"
+  },
+  "bugs": {
+    "url": "https://github.com/my-js-ventures/file-uploader/issues"
+  },
+  "homepage": "https://github.com/my-js-ventures/file-uploader#readme"
+}
