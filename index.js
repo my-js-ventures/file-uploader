@@ -34,27 +34,68 @@ function assertAllowedTypes(allowedTypes, type) {
 
 }
 
+var Files = [];
+
+function Item(file) {
+
+  this.file = file;
+  this.name = file.name;
+
+  var _size = file.size;
+  var _progress = 0;
+
+  Object.defineProperties(this, {
+    progress: {
+      set: function (v) { _progress = Math.ceil(v / _size * 10000) / 100},
+      get: function () { return _progress }
+    },
+    size: {
+      get: function () { return _size }
+    }
+  });
+
+}
+
+function uploadItem(item, index, options) {
+
+  uploadFile(
+    item.file,
+    options.target,
+    function (p) {
+      if (p.lengthComputable) {
+        item.progress = p.loaded;
+        options.onProgress(Files);
+
+        if (item.progress == 100) {
+          Files.splice(index, 1);
+        }
+
+        if (Files.length == 0) {
+          options.onEnd();
+        }
+      }
+    },
+    options.onError
+  );
+}
+
 function selectFile(event, options) {
 
   var files = event.target.files || event.dataTransfer.files;
+  var i;
 
   if (files) {
 
-    var file = files[0];
-    var size = file.size;
+    for (i = 0; i < files.length; ++i) {
+      assertAllowedTypes(options.allowedTypes, files[i].type);
+      Files.push(new Item(files[i]));
+    }
 
-    assertAllowedTypes(options.allowedTypes, file.type);
+    options.onStart(Files);
 
-    uploadFile(
-      file,
-      options.target,
-      function (p) {
-        if (p.lengthComputable) {
-          options.onProgress(Math.ceil(p.loaded / size * 10000) / 100);
-        }
-      },
-      options.onError
-    );
+    for (i = 0; i < Files.length; ++i) {
+      uploadItem(Files[i], i, options);
+    }
 
     event.target.value = '';
   }
@@ -66,8 +107,10 @@ module.exports = function (input, options) {
   var stub = function () {};
   var defaultOptions = {
     allowedTypes: [],
-    onProgress: stub,
+    onEnd: stub,
     onError: stub,
+    onProgress: stub,
+    onStart: stub,
     target: ''
   };
 
