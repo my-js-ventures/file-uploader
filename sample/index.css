@@ -1,0 +1,10 @@
+.bar {
+    height: 20px;
+    width: 300px;
+    border: 1px solid cadetblue;
+}
+
+.meter {
+    height: 100%;
+    background-color: aqua;
+}
