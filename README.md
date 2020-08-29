@@ -4,4 +4,4 @@ A simple asynchronous file uploader with progress indicator
 
 ## Sample
 
-Click [here](./sample) to view the sample
+Click [here](https://gopikrishna19.github.io/file-uploader) to view the sample
